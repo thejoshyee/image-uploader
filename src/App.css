@@ -56,7 +56,16 @@ body {
 .dragBox__title {
   font-size: var(--fs-body-inner);
   margin: 0;
-  margin-top: 0.2em;
+  margin-top: 2em;
+}
+
+.dragBox__title2 {
+  font-size: var(--fs-body-inner);
+
+}
+
+.dragbox__icon {
+  margin-top: 1em;
 }
 
 .box {
@@ -70,7 +79,6 @@ body {
 
 .drag-drop-zone {
   padding: 2rem;
-
   text-align: center;
   background: #07F;
   border-radius: 0.5rem;
@@ -89,5 +97,37 @@ body {
   border-radius: 12px;
   height: 245px;
   width: 328px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
 
+.progress-bar {
+  width: 330px;
+}
+
+.progress {
+  margin-top: 2em;
+}
+
+.copy-btn__input {
+  width: 238px;
+  margin-top: 1em;
+  padding: 0.5em;
+  border-radius: 8px;
+  border: 1px solid black;
+
+}
+
+.copy-btn {
+  background-color: #2F80ED;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  padding: 0.5em;
+  margin-left: 0.2em;
+}
+
+.copybox__message {
+  margin-top: 0.5em;
+  color: rgb(97, 156, 97);
+  border-radius: 0.5em;
 }
