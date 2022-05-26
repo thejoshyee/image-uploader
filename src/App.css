@@ -44,7 +44,7 @@ body {
 }
 
 .box__title {
-  font-size: var(--fs-h2);
+  font-size: var(--fs-h1);
   margin-bottom: 0;
 }
 
@@ -62,6 +62,11 @@ body {
 .dragBox__title2 {
   font-size: var(--fs-body-inner);
 
+}
+
+.box__subtitle {
+  font-size: var(--fs-h3);
+  font-style: italic;
 }
 
 .dragbox__icon {
@@ -100,6 +105,11 @@ body {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+.clipboard-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .progress-bar {
   width: 330px;
 }
@@ -122,12 +132,60 @@ body {
   border-radius: 8px;
   border: none;
   color: white;
-  padding: 0.5em;
+  padding: 0.7em;
   margin-left: 0.2em;
+  font-size: 0.9rem;
+  margin-top: 1em;
+
 }
 
 .copybox__message {
   margin-top: 0.5em;
   color: rgb(97, 156, 97);
   border-radius: 0.5em;
+}
+
+
+.drop-zone-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.or {
+  margin-top: 1em;
+}
+
+.checkmark {
+  width: 6%;
+}
+
+.uploaded-success-message-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.uploaded-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.uploaded-success {
+  font-size: 1.75rem;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+.choose-btn {
+  background: #2F80ED;
+  border-radius: 8px;
+  color: white;
+  border: none;
+  padding: 0.5em;
+  padding-right: 1em;
+  padding-left: 1em;
+  font-family: var(--ff-primary);
 }
