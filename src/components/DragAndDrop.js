@@ -20,7 +20,7 @@ const DragAndDrop = (props) => {
         setTimeout(() => {
             setIsLoading(false)
             setUploaded(true)
-        }, 2000)
+        }, 4000)
     }
   },[previewUrl])
 
@@ -114,20 +114,24 @@ const DragAndDrop = (props) => {
                     </>)
                 : 
                     (<div className="drop-zone-wrapper">
-                        <div className='drag-drop-zone' onDrop={handleOnDrop} onDragOver={handleOndragOver} onClick = { () => fileInput.current.click()} >
+                        <div className='drag-drop-zone' onDrop={handleOnDrop} onDragOver={handleOndragOver}>
+
                             <img className="dragbox__icon" alt="upload_image" src={uploadImageIcon} />
-                            <p className="dragBox__title">Click to Select or</p><p className="dragBox__title2">Drag and Drop Image</p>
+
+                            <p className="dragBox__title">Drag and Drop Image</p>
+
                                 <input 
                                     type="file" 
                                     accept='image/*' 
                                     ref={fileInput} hidden
                                     onChange={e => handleFile(e.target.files[0])}
                                 />
+
                         </div>
 
 
                         <p className="or">Or</p>
-                        <button className="choose-btn" type="button">Choose a file</button>
+                        <button className="choose-btn" onClick = { () => fileInput.current.click()} type="button">Choose a file</button>
 
                     </div>)
                 }
