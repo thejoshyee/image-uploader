@@ -194,3 +194,7 @@ body {
   padding-left: 1em;
   font-family: var(--ff-primary);
 }
+
+.alert {
+  margin-top: 1em;
+}
