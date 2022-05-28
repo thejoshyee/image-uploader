@@ -94,8 +94,14 @@ const DragAndDrop = (props) => {
         let droppedFile = e.dataTransfer.files[0]
         let sizeValidation = validateSize(droppedFile)
         var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.tiff|\.tif)$/i;
-
-        if (!sizeValidation) {
+        
+        if (!sizeValidation && !allowedExtensions.exec(e.dataTransfer.files[0].name)) {
+            setError('Please choose a file that is 1 mb or less. And must be of JPG or PNG filetypes.')
+            setTimeout(() => {
+                setError('')
+            },4000)
+            return false
+        } else if (!sizeValidation) {
             setError('Please choose a file that is 1 mb or less.')
             setTimeout(() => {
                 setError('')
@@ -135,7 +141,7 @@ const DragAndDrop = (props) => {
                         setError("Please select a file before uploading")
                         break
                     case "LIMIT_FILE_SIZE":
-                        setError("File size is too large. Please upload files below 1MB!")
+                        setError("File size is too large. Please upload files below 1MB. Or Invalid File Type. Must use JPG or PNG.")
                         break
                     case "INVALID_TYPE":
                         setError(
@@ -165,9 +171,6 @@ const DragAndDrop = (props) => {
           setMessage(null)
       }, 3000)
     };
-    
-
-
     
   return (
       <div className="box-Wrapper">
