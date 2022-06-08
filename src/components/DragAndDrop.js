@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react'
 import '../App.css'
 import uploadImageIcon from '../upload-image.svg'
-import axiosInstance from '../utils/axiosInstance';
+import axiosInstance from '../utils/axiosInstance'
 import { ProgressBar, Alert } from "react-bootstrap"
 import checkmark from '../assets/checkmark.png'
 
@@ -15,15 +15,20 @@ const DragAndDrop = (props) => {
   const [uploaded, setUploaded] = useState(false)  
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState()
+  const [awsUrl, setAwsUrl] = useState(null)
+  const [fileName, setFileName] = useState('')
 
   useEffect(() => {
     if(previewUrl) {
         setTimeout(() => {
             setIsLoading(false)
             setUploaded(true)
+            getAwsUrl(fileName)
+
         }, 3000)
     }
   },[previewUrl])
+
 
   const validateSize = (file) => {
     let maxfilesize = 1024 * 1024
@@ -35,6 +40,24 @@ const DragAndDrop = (props) => {
         return true
     }
   }
+
+  const getAwsUrl = (fileName) => {
+      const generateGetUrl = '/generate-get-url'
+
+      const options = {
+          params: {
+            Key: fileName,
+            ContentType: 'image/jpeg'
+          }
+      }
+
+      axiosInstance.get(generateGetUrl, options).then(res => {
+          const { data: getURL } = res
+          setAwsUrl(getURL)
+      })
+
+  }
+
 
   const handleFile = file => {
       //put validations here
@@ -48,22 +71,27 @@ const DragAndDrop = (props) => {
       } else {
 
         setPreviewUrl(URL.createObjectURL(file))
+
+        setFileName(file.name)
       
         let formData = new FormData()
   
         formData.append('file', file)
+
   
-        axiosInstance.post('/upload_file', formData, {
+        axiosInstance.post('/categories', formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
             onUploadProgress: data => {
                 setProgress(Math.round((100 * data.loaded) / data.total))
                 setIsLoading(true)
-            }
+
+            },
         })
         .catch(error => {
-          const { code } = error?.response?.data
+            // console.log("this is the error:", error)
+          const { code } = error.response.data
           switch (code) {
               case "FILE_MISSING":
                   setError("Please select a file before uploading")
@@ -78,12 +106,11 @@ const DragAndDrop = (props) => {
                   break
 
               default:
-                  setError("Sorry, something went wrong. Please try again later.")
+                //   setError("Sorry, something went wrong. Please try again later.")
                   break
           }
       })
-
-      }
+    }
   }
 
 
@@ -116,6 +143,8 @@ const DragAndDrop = (props) => {
         } else {
             
             let imageFile = e.dataTransfer.files
+
+            setFileName(e.dataTransfer.files[0].name)
         
             setPreviewUrl(URL.createObjectURL(e.dataTransfer.files[0]))
     
@@ -123,7 +152,7 @@ const DragAndDrop = (props) => {
     
             formData.append("file", imageFile[0])
             setError('')
-            axiosInstance.post("/upload_file", formData, {
+            axiosInstance.post("/categories/", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -135,7 +164,7 @@ const DragAndDrop = (props) => {
                 },        
             })
             .catch(error => {
-                const { code } = error?.response?.data
+                const { code } = error.response.data
                 switch (code) {
                     case "FILE_MISSING":
                         setError("Please select a file before uploading")
@@ -150,7 +179,7 @@ const DragAndDrop = (props) => {
                         break
                         
                     default:
-                        setError("Sorry, something went wrong. Please try again later.")
+                        // setError("Sorry, something went wrong. Please try again later.")
                         break
                 }
             })
@@ -181,9 +210,9 @@ const DragAndDrop = (props) => {
                         <p className="uploaded-success">Uploaded Successfully!</p>
                     </div>
                     <div className="dropped-image">
-                        <img alt="upload_image" className="dropped-image" src={previewUrl} />
+                        <img alt="upload_image" className="dropped-image" src={awsUrl} />
                         <div className="clipboard-wrapper">
-                            <input className="copy-btn__input"readOnly value={previewUrl} onClick={copyToClipboard} ref={(ref) => myInput = ref} />
+                            <input className="copy-btn__input"readOnly value={awsUrl} onClick={copyToClipboard} ref={(ref) => myInput = ref} />
                             <button className="copy-btn" onClick={copyToClipboard}>Copy Link</button>
                         </div>
 
