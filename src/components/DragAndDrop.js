@@ -17,6 +17,7 @@ const DragAndDrop = (props) => {
   const [error, setError] = useState()
   const [awsUrl, setAwsUrl] = useState(null)
   const [fileName, setFileName] = useState('')
+  
 
   useEffect(() => {
     if(previewUrl) {
@@ -84,8 +85,8 @@ const DragAndDrop = (props) => {
                 "Content-Type": "multipart/form-data",
             },
             onUploadProgress: data => {
-                setProgress(Math.round((100 * data.loaded) / data.total))
                 setIsLoading(true)
+                setProgress(Math.round((100 * data.loaded) / data.total))
 
             },
         })
@@ -152,7 +153,7 @@ const DragAndDrop = (props) => {
     
             formData.append("file", imageFile[0])
             setError('')
-            axiosInstance.post("/categories/", formData, {
+            axiosInstance.post("/categories", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -200,17 +201,29 @@ const DragAndDrop = (props) => {
           setMessage(null)
       }, 3000)
     };
+
+    const displayOn = {
+        display: "block"
+    }
     
+    const displayOff = {
+        display: "none"
+    }
   return (
       <div className="box-Wrapper">
-        {uploaded ?    
+        {isLoading ? (
+            <div style={isLoading ? displayOn : displayOff}>
+                <h4>Uploading...</h4>
+                <ProgressBar className="progress-bar" now={progress} label={`${progress}%`} />
+            </div>
+        ) : uploaded ? (
                 <div className="uploaded-wrapper">
                     <div className="uploaded-success-message-wrapper">
                         <img src={checkmark} alt="check" className="checkmark" />
                         <p className="uploaded-success">Uploaded Successfully!</p>
                     </div>
                     <div className="dropped-image">
-                        <img alt="upload_image" className="dropped-image" src={awsUrl} />
+                        <img alt="upload_image" className="dropped-image" src={previewUrl} />
                         <div className="clipboard-wrapper">
                             <input className="copy-btn__input"readOnly value={awsUrl} onClick={copyToClipboard} ref={(ref) => myInput = ref} />
                             <button className="copy-btn" onClick={copyToClipboard}>Copy Link</button>
@@ -219,15 +232,8 @@ const DragAndDrop = (props) => {
                         <p className="copybox__message">{message}</p>
                     </div>
                 </div>
-            :
-            (<>
-                {!error && isLoading ? 
-                    (<>
-                        <h4>Uploading...</h4>
-                        <ProgressBar className="progress-bar" now={progress} label={`${progress}%`} />
-                    </>)
-                : 
-                    (<div className="drop-zone-wrapper">
+        ) : (
+                    <div className="drop-zone-wrapper">
                         <div className='drag-drop-zone' onDrop={handleOnDrop} onDragOver={handleOndragOver}>
 
                             <img className="dragbox__icon" alt="upload_image" src={uploadImageIcon} />
@@ -242,16 +248,14 @@ const DragAndDrop = (props) => {
                                 />
 
                         </div>
-
-
                         <p className="or">Or</p>
                         <button className="choose-btn" onClick = { () => fileInput.current.click()} type="button">Choose a file</button>
+                    </div>
+                
+        )}
 
-                    </div>)
-                }
-            </>)
-        }
         {error && <Alert className="alert" variant="danger">{error}</Alert>}
+        <p className="footer">The Image Machine 2022</p>
     </div>
   );
 };

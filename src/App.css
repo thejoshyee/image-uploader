@@ -54,7 +54,7 @@ body {
 
 .box__title2 {
   margin-bottom: 2.5em;
-  font-style: italic;
+  font-size: 0.8rem;
 }
 
 .dragBox__title {
@@ -71,6 +71,8 @@ body {
 .box__subtitle {
   font-size: var(--fs-h3);
   font-style: italic;
+  text-align: center;
+  font-size: var(--fs-body-inner);
 
 }
 
@@ -148,6 +150,8 @@ body {
   margin-top: 0.5em;
   color: rgb(97, 156, 97);
   border-radius: 0.5em;
+  padding-bottom: 3em;
+  
 }
 
 
@@ -197,4 +201,11 @@ body {
 
 .alert {
   margin-top: 1em;
+}
+
+.footer {
+  display: flex;
+  margin-top: 6em;
+  flex-direction: column;
+  align-items: center;
 }
