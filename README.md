@@ -39,7 +39,7 @@
 
 This app is an image uploader App using the PERN stack - PostgreSQL, Express, React, and NodeJS.
 
-[screenshot](https://github.com/thejoshyee/image-uploader/blob/main/demo-screenshot.png?raw=true)
+<img src="https://github.com/thejoshyee/image-uploader/blob/main/demo-screenshot.png?raw=true" width="50%" />
 
 <!-- Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
 
