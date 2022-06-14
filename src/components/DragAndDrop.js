@@ -26,9 +26,10 @@ const DragAndDrop = (props) => {
             setUploaded(true)
             getAwsUrl(fileName)
 
-        }, 3000)
+        }, 4000)
     }
   },[previewUrl])
+
 
 
   const validateSize = (file) => {
@@ -44,7 +45,6 @@ const DragAndDrop = (props) => {
 
   const getAwsUrl = (fileName) => {
       const generateGetUrl = '/generate-get-url'
-
       const options = {
           params: {
             Key: fileName,
@@ -79,19 +79,18 @@ const DragAndDrop = (props) => {
   
         formData.append('file', file)
 
-  
+        setIsLoading(true)
+
         axiosInstance.post('/categories', formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
             onUploadProgress: data => {
-                setIsLoading(true)
                 setProgress(Math.round((100 * data.loaded) / data.total))
 
             },
         })
         .catch(error => {
-            // console.log("this is the error:", error)
           const { code } = error.response.data
           switch (code) {
               case "FILE_MISSING":
@@ -153,6 +152,9 @@ const DragAndDrop = (props) => {
     
             formData.append("file", imageFile[0])
             setError('')
+
+            setIsLoading(true)
+
             axiosInstance.post("/categories", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -160,7 +162,6 @@ const DragAndDrop = (props) => {
                 onUploadProgress: data => {
                     //Set the progress value to show the progress bar
                     setProgress(Math.round((100 * data.loaded) / data.total))
-                    setIsLoading(true)
     
                 },        
             })
@@ -214,7 +215,7 @@ const DragAndDrop = (props) => {
         {isLoading ? (
             <div style={isLoading ? displayOn : displayOff}>
                 <h4>Uploading...</h4>
-                <ProgressBar className="progress-bar" now={progress} label={`${progress}%`} />
+                <ProgressBar className="progress-bar" now={progress} label={`${progress}%`} animated />
             </div>
         ) : uploaded ? (
                 <div className="uploaded-wrapper">

@@ -8,11 +8,11 @@
 
 <div align="center">
   <h3>
-    <a href="https://{your-demo-link.your-domain}">
+    <a href="https://immense-badlands-20339.herokuapp.com/">
       Demo
     </a>
     <span> | </span>
-    <a href="https://{your-url-to-the-solution}">
+    <a href="https://github.com/thejoshyee/image-uploader">
       Solution
     </a>
     <span> | </span>
@@ -37,7 +37,7 @@
 
 ## Overview
 
-This app is an image uploader App using React.
+This app is an image uploader App using the PERN stack - PostgreSQL, Express, React, and NodeJS.
 
 <!-- ![screenshot](https://user-images.githubusercontent.com/16707738/92399059-5716eb00-f132-11ea-8b14-bcacdc8ec97b.png) -->
 
@@ -53,6 +53,9 @@ This app is an image uploader App using React.
 <!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 
 - [React](https://reactjs.org/)
+- [PostgreSQL]
+- [Express]
+- [Node]
 
 ## Features
 
